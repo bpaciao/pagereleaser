@@ -38,8 +38,8 @@ namespace JavaScriptSupport
     {
         const int EOF = -1;
 
-        StreamReader sr;
-        StreamWriter sw;
+        TextReader sr;
+        TextWriter sw;
         int theA;
         int theB;
         int theLookahead = EOF;
@@ -49,6 +49,17 @@ namespace JavaScriptSupport
             using (sr = new StreamReader(src, System.Text.Encoding.Default))
             {
                 using (sw = new StreamWriter(dst, false, System.Text.Encoding.Default))
+                {
+                    jsmin();
+                }
+            }
+        }
+
+        public void MinifyString(string src, System.Text.StringBuilder dst)
+        {
+            using (sr = new StringReader(src))
+            {
+                using (sw = new StringWriter(dst))
                 {
                     jsmin();
                 }
