@@ -20,6 +20,7 @@ namespace PageReleaser
         public bool IsCssEmbed { get; set; }
 
         public bool IgnoreRemoteFile { get; set; }
+        public bool IsCurrentFolderAndSubsOnly { get; set; }
 
         public SettingManager(string html, string output)
         {

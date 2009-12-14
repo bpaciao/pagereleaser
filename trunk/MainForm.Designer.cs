@@ -51,6 +51,7 @@
             this.FolderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.OpenFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.StartButton = new System.Windows.Forms.Button();
+            this.CurrentFolderAndSubsOnlyCheckBox = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -60,9 +61,9 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 9);
+            this.label1.Location = new System.Drawing.Point(12, 8);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(32, 13);
+            this.label1.Size = new System.Drawing.Size(29, 12);
             this.label1.TabIndex = 0;
             this.label1.Text = "Page";
             // 
@@ -70,19 +71,19 @@
             // 
             this.PageTextBox.AllowDrop = true;
             this.PageTextBox.Cursor = System.Windows.Forms.Cursors.Default;
-            this.PageTextBox.Location = new System.Drawing.Point(57, 9);
+            this.PageTextBox.Location = new System.Drawing.Point(57, 8);
             this.PageTextBox.Name = "PageTextBox";
             this.PageTextBox.ReadOnly = true;
-            this.PageTextBox.Size = new System.Drawing.Size(180, 20);
+            this.PageTextBox.Size = new System.Drawing.Size(180, 21);
             this.PageTextBox.TabIndex = 1;
             this.PageTextBox.DragDrop += new System.Windows.Forms.DragEventHandler(this.PageTextBox_DragDrop);
             this.PageTextBox.DragEnter += new System.Windows.Forms.DragEventHandler(this.PageTextBox_DragEnter);
             // 
             // PageBrowseButton
             // 
-            this.PageBrowseButton.Location = new System.Drawing.Point(243, 9);
+            this.PageBrowseButton.Location = new System.Drawing.Point(243, 8);
             this.PageBrowseButton.Name = "PageBrowseButton";
-            this.PageBrowseButton.Size = new System.Drawing.Size(23, 23);
+            this.PageBrowseButton.Size = new System.Drawing.Size(23, 21);
             this.PageBrowseButton.TabIndex = 2;
             this.PageBrowseButton.Text = "...";
             this.PageBrowseButton.UseVisualStyleBackColor = true;
@@ -90,9 +91,9 @@
             // 
             // OutputBrowseButton
             // 
-            this.OutputBrowseButton.Location = new System.Drawing.Point(243, 35);
+            this.OutputBrowseButton.Location = new System.Drawing.Point(243, 32);
             this.OutputBrowseButton.Name = "OutputBrowseButton";
-            this.OutputBrowseButton.Size = new System.Drawing.Size(23, 23);
+            this.OutputBrowseButton.Size = new System.Drawing.Size(23, 21);
             this.OutputBrowseButton.TabIndex = 5;
             this.OutputBrowseButton.Text = "...";
             this.OutputBrowseButton.UseVisualStyleBackColor = true;
@@ -100,18 +101,18 @@
             // 
             // OutputTextBox
             // 
-            this.OutputTextBox.Location = new System.Drawing.Point(57, 35);
+            this.OutputTextBox.Location = new System.Drawing.Point(57, 32);
             this.OutputTextBox.Name = "OutputTextBox";
             this.OutputTextBox.ReadOnly = true;
-            this.OutputTextBox.Size = new System.Drawing.Size(180, 20);
+            this.OutputTextBox.Size = new System.Drawing.Size(180, 21);
             this.OutputTextBox.TabIndex = 4;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 35);
+            this.label2.Location = new System.Drawing.Point(12, 32);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(39, 13);
+            this.label2.Size = new System.Drawing.Size(41, 12);
             this.label2.TabIndex = 3;
             this.label2.Text = "Output";
             // 
@@ -119,9 +120,9 @@
             // 
             this.HTMLCompressCheckBox.AutoSize = true;
             this.HTMLCompressCheckBox.Enabled = false;
-            this.HTMLCompressCheckBox.Location = new System.Drawing.Point(6, 19);
+            this.HTMLCompressCheckBox.Location = new System.Drawing.Point(6, 18);
             this.HTMLCompressCheckBox.Name = "HTMLCompressCheckBox";
-            this.HTMLCompressCheckBox.Size = new System.Drawing.Size(56, 17);
+            this.HTMLCompressCheckBox.Size = new System.Drawing.Size(48, 16);
             this.HTMLCompressCheckBox.TabIndex = 6;
             this.HTMLCompressCheckBox.Text = "HTML";
             this.HTMLCompressCheckBox.UseVisualStyleBackColor = true;
@@ -131,9 +132,9 @@
             this.JavaScriptCompressCheckBox.AutoSize = true;
             this.JavaScriptCompressCheckBox.Checked = true;
             this.JavaScriptCompressCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.JavaScriptCompressCheckBox.Location = new System.Drawing.Point(68, 18);
+            this.JavaScriptCompressCheckBox.Location = new System.Drawing.Point(68, 17);
             this.JavaScriptCompressCheckBox.Name = "JavaScriptCompressCheckBox";
-            this.JavaScriptCompressCheckBox.Size = new System.Drawing.Size(76, 17);
+            this.JavaScriptCompressCheckBox.Size = new System.Drawing.Size(84, 16);
             this.JavaScriptCompressCheckBox.TabIndex = 7;
             this.JavaScriptCompressCheckBox.Text = "JavaScript";
             this.JavaScriptCompressCheckBox.UseVisualStyleBackColor = true;
@@ -142,9 +143,9 @@
             // 
             this.CSSCompressCheckBox.AutoSize = true;
             this.CSSCompressCheckBox.Enabled = false;
-            this.CSSCompressCheckBox.Location = new System.Drawing.Point(150, 19);
+            this.CSSCompressCheckBox.Location = new System.Drawing.Point(150, 18);
             this.CSSCompressCheckBox.Name = "CSSCompressCheckBox";
-            this.CSSCompressCheckBox.Size = new System.Drawing.Size(47, 17);
+            this.CSSCompressCheckBox.Size = new System.Drawing.Size(42, 16);
             this.CSSCompressCheckBox.TabIndex = 8;
             this.CSSCompressCheckBox.Text = "CSS";
             this.CSSCompressCheckBox.UseVisualStyleBackColor = true;
@@ -152,9 +153,9 @@
             // JavaScriptEmbedCheckBox
             // 
             this.JavaScriptEmbedCheckBox.AutoSize = true;
-            this.JavaScriptEmbedCheckBox.Location = new System.Drawing.Point(6, 18);
+            this.JavaScriptEmbedCheckBox.Location = new System.Drawing.Point(6, 17);
             this.JavaScriptEmbedCheckBox.Name = "JavaScriptEmbedCheckBox";
-            this.JavaScriptEmbedCheckBox.Size = new System.Drawing.Size(76, 17);
+            this.JavaScriptEmbedCheckBox.Size = new System.Drawing.Size(84, 16);
             this.JavaScriptEmbedCheckBox.TabIndex = 9;
             this.JavaScriptEmbedCheckBox.Text = "JavaScript";
             this.JavaScriptEmbedCheckBox.UseVisualStyleBackColor = true;
@@ -162,9 +163,9 @@
             // CSSEmbedCheckBox
             // 
             this.CSSEmbedCheckBox.AutoSize = true;
-            this.CSSEmbedCheckBox.Location = new System.Drawing.Point(88, 19);
+            this.CSSEmbedCheckBox.Location = new System.Drawing.Point(88, 18);
             this.CSSEmbedCheckBox.Name = "CSSEmbedCheckBox";
-            this.CSSEmbedCheckBox.Size = new System.Drawing.Size(47, 17);
+            this.CSSEmbedCheckBox.Size = new System.Drawing.Size(42, 16);
             this.CSSEmbedCheckBox.TabIndex = 10;
             this.CSSEmbedCheckBox.Text = "CSS";
             this.CSSEmbedCheckBox.UseVisualStyleBackColor = true;
@@ -174,9 +175,9 @@
             this.groupBox1.Controls.Add(this.HTMLCompressCheckBox);
             this.groupBox1.Controls.Add(this.JavaScriptCompressCheckBox);
             this.groupBox1.Controls.Add(this.CSSCompressCheckBox);
-            this.groupBox1.Location = new System.Drawing.Point(9, 58);
+            this.groupBox1.Location = new System.Drawing.Point(9, 54);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(257, 41);
+            this.groupBox1.Size = new System.Drawing.Size(257, 38);
             this.groupBox1.TabIndex = 11;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Compress";
@@ -185,9 +186,9 @@
             // 
             this.groupBox2.Controls.Add(this.CSSEmbedCheckBox);
             this.groupBox2.Controls.Add(this.JavaScriptEmbedCheckBox);
-            this.groupBox2.Location = new System.Drawing.Point(9, 152);
+            this.groupBox2.Location = new System.Drawing.Point(9, 140);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(257, 41);
+            this.groupBox2.Size = new System.Drawing.Size(257, 38);
             this.groupBox2.TabIndex = 12;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Embed in page";
@@ -197,9 +198,9 @@
             this.groupBox3.Controls.Add(this.ImageCombineCheckBox8);
             this.groupBox3.Controls.Add(this.CSSCombineCheckBox);
             this.groupBox3.Controls.Add(this.JavaScriptCombineCheckBox);
-            this.groupBox3.Location = new System.Drawing.Point(9, 105);
+            this.groupBox3.Location = new System.Drawing.Point(9, 97);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(257, 41);
+            this.groupBox3.Size = new System.Drawing.Size(257, 38);
             this.groupBox3.TabIndex = 13;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Combine";
@@ -208,9 +209,9 @@
             // 
             this.ImageCombineCheckBox8.AutoSize = true;
             this.ImageCombineCheckBox8.Enabled = false;
-            this.ImageCombineCheckBox8.Location = new System.Drawing.Point(141, 19);
+            this.ImageCombineCheckBox8.Location = new System.Drawing.Point(141, 18);
             this.ImageCombineCheckBox8.Name = "ImageCombineCheckBox8";
-            this.ImageCombineCheckBox8.Size = new System.Drawing.Size(55, 17);
+            this.ImageCombineCheckBox8.Size = new System.Drawing.Size(54, 16);
             this.ImageCombineCheckBox8.TabIndex = 13;
             this.ImageCombineCheckBox8.Text = "Image";
             this.ImageCombineCheckBox8.UseVisualStyleBackColor = true;
@@ -221,9 +222,9 @@
             this.CSSCombineCheckBox.Checked = true;
             this.CSSCombineCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
             this.CSSCombineCheckBox.Enabled = false;
-            this.CSSCombineCheckBox.Location = new System.Drawing.Point(88, 20);
+            this.CSSCombineCheckBox.Location = new System.Drawing.Point(88, 18);
             this.CSSCombineCheckBox.Name = "CSSCombineCheckBox";
-            this.CSSCombineCheckBox.Size = new System.Drawing.Size(47, 17);
+            this.CSSCombineCheckBox.Size = new System.Drawing.Size(42, 16);
             this.CSSCombineCheckBox.TabIndex = 12;
             this.CSSCombineCheckBox.Text = "CSS";
             this.CSSCombineCheckBox.UseVisualStyleBackColor = true;
@@ -234,9 +235,9 @@
             this.JavaScriptCombineCheckBox.Checked = true;
             this.JavaScriptCombineCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
             this.JavaScriptCombineCheckBox.Enabled = false;
-            this.JavaScriptCombineCheckBox.Location = new System.Drawing.Point(6, 21);
+            this.JavaScriptCombineCheckBox.Location = new System.Drawing.Point(6, 19);
             this.JavaScriptCombineCheckBox.Name = "JavaScriptCombineCheckBox";
-            this.JavaScriptCombineCheckBox.Size = new System.Drawing.Size(76, 17);
+            this.JavaScriptCombineCheckBox.Size = new System.Drawing.Size(84, 16);
             this.JavaScriptCombineCheckBox.TabIndex = 11;
             this.JavaScriptCombineCheckBox.Text = "JavaScript";
             this.JavaScriptCombineCheckBox.UseVisualStyleBackColor = true;
@@ -246,20 +247,21 @@
             this.IgnoreRemoteFilesCheckBox.AutoSize = true;
             this.IgnoreRemoteFilesCheckBox.Checked = true;
             this.IgnoreRemoteFilesCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.IgnoreRemoteFilesCheckBox.Location = new System.Drawing.Point(6, 18);
+            this.IgnoreRemoteFilesCheckBox.Location = new System.Drawing.Point(6, 17);
             this.IgnoreRemoteFilesCheckBox.Name = "IgnoreRemoteFilesCheckBox";
-            this.IgnoreRemoteFilesCheckBox.Size = new System.Drawing.Size(112, 17);
+            this.IgnoreRemoteFilesCheckBox.Size = new System.Drawing.Size(138, 16);
             this.IgnoreRemoteFilesCheckBox.TabIndex = 14;
             this.IgnoreRemoteFilesCheckBox.Text = "Ignore remote files";
             this.IgnoreRemoteFilesCheckBox.UseVisualStyleBackColor = true;
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.CurrentFolderAndSubsOnlyCheckBox);
             this.groupBox4.Controls.Add(this.UseGZipCheckBox);
             this.groupBox4.Controls.Add(this.IgnoreRemoteFilesCheckBox);
-            this.groupBox4.Location = new System.Drawing.Point(9, 199);
+            this.groupBox4.Location = new System.Drawing.Point(9, 184);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(257, 41);
+            this.groupBox4.Size = new System.Drawing.Size(257, 60);
             this.groupBox4.TabIndex = 15;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Other";
@@ -268,9 +270,9 @@
             // 
             this.UseGZipCheckBox.AutoSize = true;
             this.UseGZipCheckBox.Enabled = false;
-            this.UseGZipCheckBox.Location = new System.Drawing.Point(125, 18);
+            this.UseGZipCheckBox.Location = new System.Drawing.Point(125, 17);
             this.UseGZipCheckBox.Name = "UseGZipCheckBox";
-            this.UseGZipCheckBox.Size = new System.Drawing.Size(70, 17);
+            this.UseGZipCheckBox.Size = new System.Drawing.Size(78, 16);
             this.UseGZipCheckBox.TabIndex = 15;
             this.UseGZipCheckBox.Text = "User gzip";
             this.UseGZipCheckBox.UseVisualStyleBackColor = true;
@@ -281,17 +283,28 @@
             // 
             // StartButton
             // 
-            this.StartButton.Location = new System.Drawing.Point(101, 246);
+            this.StartButton.Location = new System.Drawing.Point(97, 250);
             this.StartButton.Name = "StartButton";
-            this.StartButton.Size = new System.Drawing.Size(75, 23);
+            this.StartButton.Size = new System.Drawing.Size(75, 21);
             this.StartButton.TabIndex = 9;
             this.StartButton.Text = "Start";
             this.StartButton.UseVisualStyleBackColor = true;
             this.StartButton.Click += new System.EventHandler(this.StartButton_Click);
             // 
+            // CurrentFolderAndSubsOnlyCheckBox
+            // 
+            this.CurrentFolderAndSubsOnlyCheckBox.AutoSize = true;
+            this.CurrentFolderAndSubsOnlyCheckBox.Enabled = false;
+            this.CurrentFolderAndSubsOnlyCheckBox.Location = new System.Drawing.Point(6, 38);
+            this.CurrentFolderAndSubsOnlyCheckBox.Name = "CurrentFolderAndSubsOnlyCheckBox";
+            this.CurrentFolderAndSubsOnlyCheckBox.Size = new System.Drawing.Size(192, 16);
+            this.CurrentFolderAndSubsOnlyCheckBox.TabIndex = 16;
+            this.CurrentFolderAndSubsOnlyCheckBox.Text = "Current folder and subs only";
+            this.CurrentFolderAndSubsOnlyCheckBox.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(277, 279);
             this.Controls.Add(this.StartButton);
@@ -346,6 +359,7 @@
         private System.Windows.Forms.FolderBrowserDialog FolderBrowserDialog;
         private System.Windows.Forms.OpenFileDialog OpenFileDialog;
         private System.Windows.Forms.Button StartButton;
+        private System.Windows.Forms.CheckBox CurrentFolderAndSubsOnlyCheckBox;
     }
 }
 

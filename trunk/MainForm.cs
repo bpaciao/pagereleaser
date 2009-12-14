@@ -49,6 +49,7 @@ namespace PageReleaser
             sm.IsCssEmbed = CSSEmbedCheckBox.Checked;
 
             sm.IgnoreRemoteFile = IgnoreRemoteFilesCheckBox.Checked;
+            sm.IsCurrentFolderAndSubsOnly = CurrentFolderAndSubsOnlyCheckBox.Checked;
 
             //
             Releaser r = new Releaser();
