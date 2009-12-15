@@ -11,6 +11,8 @@ namespace PageReleaser
         public string PageName { get; set; }
         public string OutputPath { get; set; }
 
+        public bool IsHtmlCompress { get; set; }
+
         public bool IsJavaScriptCombine { get; set; }
         public bool IsJavaScriptCompress { get; set; }
         public bool IsJavaScriptEmbed { get; set; }

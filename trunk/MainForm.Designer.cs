@@ -47,11 +47,11 @@
             this.JavaScriptCombineCheckBox = new System.Windows.Forms.CheckBox();
             this.IgnoreRemoteFilesCheckBox = new System.Windows.Forms.CheckBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.CurrentFolderAndSubsOnlyCheckBox = new System.Windows.Forms.CheckBox();
             this.UseGZipCheckBox = new System.Windows.Forms.CheckBox();
             this.FolderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.OpenFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.StartButton = new System.Windows.Forms.Button();
-            this.CurrentFolderAndSubsOnlyCheckBox = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -119,7 +119,8 @@
             // HTMLCompressCheckBox
             // 
             this.HTMLCompressCheckBox.AutoSize = true;
-            this.HTMLCompressCheckBox.Enabled = false;
+            this.HTMLCompressCheckBox.Checked = true;
+            this.HTMLCompressCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
             this.HTMLCompressCheckBox.Location = new System.Drawing.Point(6, 18);
             this.HTMLCompressCheckBox.Name = "HTMLCompressCheckBox";
             this.HTMLCompressCheckBox.Size = new System.Drawing.Size(48, 16);
@@ -266,6 +267,17 @@
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Other";
             // 
+            // CurrentFolderAndSubsOnlyCheckBox
+            // 
+            this.CurrentFolderAndSubsOnlyCheckBox.AutoSize = true;
+            this.CurrentFolderAndSubsOnlyCheckBox.Enabled = false;
+            this.CurrentFolderAndSubsOnlyCheckBox.Location = new System.Drawing.Point(6, 38);
+            this.CurrentFolderAndSubsOnlyCheckBox.Name = "CurrentFolderAndSubsOnlyCheckBox";
+            this.CurrentFolderAndSubsOnlyCheckBox.Size = new System.Drawing.Size(192, 16);
+            this.CurrentFolderAndSubsOnlyCheckBox.TabIndex = 16;
+            this.CurrentFolderAndSubsOnlyCheckBox.Text = "Current folder and subs only";
+            this.CurrentFolderAndSubsOnlyCheckBox.UseVisualStyleBackColor = true;
+            // 
             // UseGZipCheckBox
             // 
             this.UseGZipCheckBox.AutoSize = true;
@@ -290,17 +302,6 @@
             this.StartButton.Text = "Start";
             this.StartButton.UseVisualStyleBackColor = true;
             this.StartButton.Click += new System.EventHandler(this.StartButton_Click);
-            // 
-            // CurrentFolderAndSubsOnlyCheckBox
-            // 
-            this.CurrentFolderAndSubsOnlyCheckBox.AutoSize = true;
-            this.CurrentFolderAndSubsOnlyCheckBox.Enabled = false;
-            this.CurrentFolderAndSubsOnlyCheckBox.Location = new System.Drawing.Point(6, 38);
-            this.CurrentFolderAndSubsOnlyCheckBox.Name = "CurrentFolderAndSubsOnlyCheckBox";
-            this.CurrentFolderAndSubsOnlyCheckBox.Size = new System.Drawing.Size(192, 16);
-            this.CurrentFolderAndSubsOnlyCheckBox.TabIndex = 16;
-            this.CurrentFolderAndSubsOnlyCheckBox.Text = "Current folder and subs only";
-            this.CurrentFolderAndSubsOnlyCheckBox.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 

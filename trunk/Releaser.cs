@@ -23,8 +23,8 @@ namespace PageReleaser
             // init js manager
             JavaScriptManager jsm = new JavaScriptManager( sm );
             var js = from s in doc.Descendants()
-                     where s.Name.LocalName == "script" && 
-                     s.Attribute("type").Value == "text/javascript" &&
+                     where string.Compare( s.Name.LocalName, "script", true ) == 0 && 
+                     string.Compare( s.Attribute("type").Value, "text/javascript", true ) == 0 &&
                      s.Attribute("src") != null 
                      select s;
             foreach ( XElement xe in js )
@@ -34,9 +34,9 @@ namespace PageReleaser
             // init css manager
             CssManager cm = new CssManager(sm);
             var css = from s in doc.Descendants()
-                     where s.Name.LocalName == "link" &&
-                     s.Attribute("type").Value == "text/css" &&
-                     s.Attribute("rel").Value == "stylesheet" &&
+                     where string.Compare( s.Name.LocalName, "link", true ) == 0 &&
+                     string.Compare( s.Attribute("type").Value, "text/css", true ) == 0 &&
+                     string.Compare( s.Attribute("rel").Value, "stylesheet", true ) == 0 &&
                      s.Attribute("href") != null
                      select s;
             foreach (XElement xe in css)
@@ -44,7 +44,18 @@ namespace PageReleaser
             cm.CssMin();
 
             // save html
-           doc.Save( sm.OutputPath + "index.html" );
+            if ( !sm.IsHtmlCompress )
+                doc.Save( sm.OutputPath + "index.html" );
+            else
+            {
+                var nodes = from s in doc.DescendantNodes()
+                           where s.NodeType == XmlNodeType.Comment &&
+                           string.Compare( s.Parent.Name.LocalName, "script", true ) != 0
+                           select s;
+
+                nodes.Remove();
+                doc.Save( sm.OutputPath + "index.html", SaveOptions.DisableFormatting );
+            }
         }
 
         public static string Html2XHtml(string strHtml)
