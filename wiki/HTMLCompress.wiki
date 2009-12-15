@@ -1,6 +1,4 @@
-#summary 实现HTML的简单压缩
 #labels html压缩,XDocument,XLinq
-
 = 实现HTML的简单压缩 =
 
 PageReleaser需要一种HTML的压缩算法，Google了很久，发现如果只是简单去除空白和注释的话，使用XLinq就可以轻易的实现
