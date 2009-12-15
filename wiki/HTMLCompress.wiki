@@ -1,15 +1,13 @@
 #labels html压缩,XDocument,XLinq
 = 实现HTML的简单压缩 =
 
-PageReleaser需要一种HTML的压缩算法，Google了很久，发现如果只是简单去除空白和注释的话，使用XLinq就可以轻易的实现
+[http://www.mytools360.com PageReleaser]需要一种HTML的压缩算法，Google了很久，发现如果只是简单去除空白和注释的话，使用XLinq就可以轻易的实现
 
 先看看MSDN是怎么说的：
 
-{{{
 一种常用方案是读取缩进的 XML，在内存中创建一个没有任何空白文本节点（即不保留空白）的 XML 树，对该 XML 执行某些操作，然后保存带缩进的 XML。在序列化带格式的 XML 时，只保留 XML 树中有意义的空白。这是 LINQ to XML 的默认行为。
 
 另一个常见的情况是读取和修改已经有意缩进的 XML。您可能不想以任何方式更改这种缩进。若要在 LINQ to XML 中执行此操作，您要在加载或解析 XML 时保留空白，并在序列化 XML 时禁用格式设置。
-}}}
 
 简单的说，XDocument载入时，默认使用LoadOptions::None，自动去掉XML的空白；保存时，默认使用SaveOptions::None，自动格式化XML。
 
