@@ -40,6 +40,8 @@ namespace PageReleaser
             // init proxymanager
             SettingManager sm = new SettingManager(PageTextBox.Text, OutputTextBox.Text);
 
+            sm.IsHtmlCompress = HTMLCompressCheckBox.Checked;
+
             sm.IsJavaScriptCompress = JavaScriptCompressCheckBox.Checked;
             sm.IsJavaScriptCombine = JavaScriptCombineCheckBox.Checked;
             sm.IsJavaScriptEmbed = JavaScriptEmbedCheckBox.Checked;
