@@ -7,7 +7,6 @@ namespace PageReleaser
 {
     public class SettingManager
     {
-        string _base;
         public string PageName { get; set; }
         public string OutputPath { get; set; }
 
@@ -27,14 +26,6 @@ namespace PageReleaser
         public SettingManager(string html, string output)
         {
             PageName = html;
-
-            html = System.IO.Path.GetDirectoryName(html);
-            if (!html.EndsWith("\\"))
-                html += '\\';
-            _base = html;
-
-            if (!output.EndsWith("\\"))
-                output += '\\';
             OutputPath = output;
 
             IsJavaScriptCombine = true;
@@ -43,17 +34,21 @@ namespace PageReleaser
             IgnoreRemoteFile = true;
         }
 
-        public System.IO.TextReader GetTextReader(string uri)
+        public System.IO.Stream GetTextStream(string uri)
         {
-            if ( IsRemoteFile( uri ) )
+            if (IsRemoteFile(uri))
             {
                 System.Net.WebRequest request = System.Net.HttpWebRequest.Create(uri);
                 System.Net.WebResponse response = request.GetResponse();
-                System.IO.Stream stream = response.GetResponseStream();
-                return new System.IO.StreamReader(stream);
+                return response.GetResponseStream();
             }
 
-            return new System.IO.StreamReader( _base + uri, System.Text.Encoding.Default );
+            return new System.IO.FileStream( GetAbsolutePath( PageName, uri ), System.IO.FileMode.Open );
+        }
+
+        public System.IO.TextReader GetTextReader(string uri)
+        {
+            return new System.IO.StreamReader(GetTextStream(uri), System.Text.Encoding.Default); 
         }
 
         public System.IO.TextWriter GetTextWriter(string uri)

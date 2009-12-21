@@ -10,7 +10,6 @@ namespace PageReleaser
     class CssInfo
     {
         public CSSDocument CSS { get; set; }
-        public string Value { get; set; }
         public XElement Element { get; set; }
     }
 
@@ -32,9 +31,22 @@ namespace PageReleaser
             CssInfo ci = new CssInfo();
             ci.Element = xe;
 
-            System.IO.TextReader sr = _sm.GetTextReader(xe.Attribute("href").Value);
-            ci.Value = sr.ReadToEnd();
-            sr.Close();
+            CSSParser parser = new CSSParser();
+            ci.CSS = parser.ParseStream( _sm.GetTextStream(xe.Attribute("href").Value));
+
+            _cssElements.Add(ci);
+        }
+
+        public void Add(string uri)
+        {
+            if (_sm.IgnoreRemoteFile && _sm.IsRemoteFile(uri))
+                return;
+
+            CssInfo ci = new CssInfo();
+            ci.Element = null;
+
+            CSSParser parser = new CSSParser();
+            ci.CSS = parser.ParseStream(_sm.GetTextStream(uri));
 
             _cssElements.Add(ci);
         }
@@ -46,21 +58,21 @@ namespace PageReleaser
 
             if (_sm.IsCssCombine && _cssElements.Count > 1)
             {
-                // combine js files
-                StringBuilder sb = new StringBuilder();
-                foreach (CssInfo ci in _cssElements)
-                    sb.Append(ci.Value);
+                //// combine js files
+                //StringBuilder sb = new StringBuilder();
+                //foreach (CssInfo ci in _cssElements)
+                //    sb.Append(ci.Value);
 
-                //
-                CssInfo css = _cssElements[0];
-                css.Value = sb.ToString();
-                css.Element.Attribute("href").Value = "index.css";
-                _cssElements.Remove(css);
-                foreach (CssInfo ci in _cssElements)
-                    ci.Element.Remove();
+                ////
+                //CssInfo css = _cssElements[0];
+                //css.Value = sb.ToString();
+                //css.Element.Attribute("href").Value = "index.css";
+                //_cssElements.Remove(css);
+                //foreach (CssInfo ci in _cssElements)
+                //    ci.Element.Remove();
 
-                _cssElements.Clear();
-                _cssElements.Add(css);
+                //_cssElements.Clear();
+                //_cssElements.Add(css);
             }
 
             if (_sm.IsCssCompress)
@@ -78,28 +90,28 @@ namespace PageReleaser
             if (_sm.IsCssEmbed)
             {
                 // embed js in html
-                StringBuilder sb = new StringBuilder();
-                foreach (CssInfo ci in _cssElements)
-                    sb.Append( ci.Value );
+                //StringBuilder sb = new StringBuilder();
+                //foreach (CssInfo ci in _cssElements)
+                //    sb.Append( ci.Value );
 
-                CssInfo css = _cssElements[0];
-                _cssElements.Remove(css);
-                css.Element.RemoveAll();
-                css.Element.Name = css.Element.Name.Namespace + "style";
-                css.Element.SetValue(sb.ToString());
+                //CssInfo css = _cssElements[0];
+                //_cssElements.Remove(css);
+                //css.Element.RemoveAll();
+                //css.Element.Name = css.Element.Name.Namespace + "style";
+                //css.Element.SetValue(sb.ToString());
 
-                foreach (CssInfo ci in _cssElements)
-                    ci.Element.Remove();
-                _cssElements.Clear();
+                //foreach (CssInfo ci in _cssElements)
+                //    ci.Element.Remove();
+                //_cssElements.Clear();
             }
 
             // save js 
-            foreach (CssInfo jsi in _cssElements)
-            {
-                System.IO.StreamWriter sw = new System.IO.StreamWriter(_sm.OutputPath + jsi.Element.Attribute("href").Value);
-                sw.Write(jsi.Value);
-                sw.Close();
-            }
+            //foreach (CssInfo jsi in _cssElements)
+            //{
+            //    System.IO.StreamWriter sw = new System.IO.StreamWriter(_sm.OutputPath + jsi.Element.Attribute("href").Value);
+            //    sw.Write(jsi.Value);
+            //    sw.Close();
+            //}
         }
     }
 }
