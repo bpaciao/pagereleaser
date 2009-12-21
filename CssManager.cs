@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Xml.Linq;
+using BoneSoft.CSS;
 
 namespace PageReleaser
 {
     class CssInfo
     {
+        public CSSDocument CSS { get; set; }
         public string Value { get; set; }
         public XElement Element { get; set; }
     }
