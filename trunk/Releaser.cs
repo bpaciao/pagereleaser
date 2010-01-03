@@ -17,8 +17,19 @@ namespace PageReleaser
             string xhtml = Html2XHtml(sr.ReadToEnd());
             sr.Close();
 
-            // parse xhtml
-            XDocument doc = XDocument.Load( new System.IO.StringReader( xhtml ) );
+            //// parse xhtml
+            //XmlValidatingReader rdr = new XmlValidatingReader(xhtml, XmlNodeType.Document, null);
+            //rdr.ValidationType = ValidationType.None;
+            //rdr.XmlResolver = XHTMLResolver.Create();
+
+            XmlReaderSettings xrs = new XmlReaderSettings();
+            xrs.XmlResolver = new XHTMLResolver();
+            xrs.ProhibitDtd = false;
+
+            //XDocument doc = XDocument.Load(XHTMLTextReader.Create());
+ //           XDocument doc = XDocument.Load(new System.IO.StringReader(xhtml));
+
+            XDocument doc = XDocument.Load(XmlReader.Create(new System.IO.StringReader(xhtml), xrs) );
 
             // init js manager
             JavaScriptManager jsm = new JavaScriptManager( sm );
