@@ -9,6 +9,7 @@ namespace PageReleaser
 {
     class CssInfo
     {
+        public string Uri { get; set; }
         public CSSDocument CSS { get; set; }
         public XElement Element { get; set; }
     }
@@ -25,14 +26,16 @@ namespace PageReleaser
 
         public void Add(XElement xe)
         {
-            if (_sm.IgnoreRemoteFile && _sm.IsRemoteFile(xe.Attribute("href").Value))
+            string uri = SettingManager.GetAbsolutePath(_sm.PageName, xe.Attribute("href").Value);
+            if (_sm.IgnoreRemoteFile && _sm.IsRemoteFile(uri))
                 return;
 
             CssInfo ci = new CssInfo();
             ci.Element = xe;
+            ci.Uri = uri;
 
             CSSParser parser = new CSSParser();
-            ci.CSS = parser.ParseStream( _sm.GetTextStream(xe.Attribute("href").Value));
+            ci.CSS = parser.ParseStream( _sm.GetTextStream(ci.Uri));
 
             _cssElements.Add(ci);
         }
@@ -43,6 +46,7 @@ namespace PageReleaser
                 return;
 
             CssInfo ci = new CssInfo();
+            ci.Uri = uri;
             ci.Element = null;
 
             CSSParser parser = new CSSParser();
@@ -56,62 +60,45 @@ namespace PageReleaser
             if (0 == _cssElements.Count)
                 return;
 
-            if (_sm.IsCssCombine && _cssElements.Count > 1)
+            if (_cssElements.Count > 1 && (_sm.IsCssCombine || _sm.IsCssEmbed ))
             {
-                //// combine js files
-                //StringBuilder sb = new StringBuilder();
-                //foreach (CssInfo ci in _cssElements)
-                //    sb.Append(ci.Value);
+                // combine css files
+                CssInfo css = _cssElements[0];
+                for (int i = 1; i < _cssElements.Count; i++)
+                {
+                    css.CSS.Directives.AddRange(_cssElements[i].CSS.Directives);
+                    css.CSS.RuleSets.AddRange(_cssElements[i].CSS.RuleSets);
+                }
+                css.Element.Attribute("href").Value = "index.css";
+                _cssElements.Remove(css);
+                foreach (CssInfo ci in _cssElements)
+                    ci.Element.Remove();
 
-                ////
-                //CssInfo css = _cssElements[0];
-                //css.Value = sb.ToString();
-                //css.Element.Attribute("href").Value = "index.css";
-                //_cssElements.Remove(css);
-                //foreach (CssInfo ci in _cssElements)
-                //    ci.Element.Remove();
-
-                //_cssElements.Clear();
-                //_cssElements.Add(css);
-            }
-
-            if (_sm.IsCssCompress)
-            {
-                // compress js
-                //foreach (CssInfo jsi in _jsElements)
-                //{
-                //    StringBuilder sb = new StringBuilder();
-                //    JavaScriptSupport.JavaScriptMinifier jsmin = new JavaScriptSupport.JavaScriptMinifier();
-                //    jsmin.MinifyString(jsi.Value, sb);
-                //    jsi.Value = sb.ToString();
-                //}
+                _cssElements.Clear();
+                _cssElements.Add(css);
             }
 
             if (_sm.IsCssEmbed)
             {
-                // embed js in html
-                //StringBuilder sb = new StringBuilder();
-                //foreach (CssInfo ci in _cssElements)
-                //    sb.Append( ci.Value );
+                // embed css in html
+                CssInfo css = _cssElements[0];
+                _cssElements.Remove(css);
+                css.Element.RemoveAll();
+                css.Element.Name = css.Element.Name.Namespace + "style";
+                css.Element.SetValue(CSSRenderer.Render( css.CSS, _sm.IsCssCompress ) );
 
-                //CssInfo css = _cssElements[0];
-                //_cssElements.Remove(css);
-                //css.Element.RemoveAll();
-                //css.Element.Name = css.Element.Name.Namespace + "style";
-                //css.Element.SetValue(sb.ToString());
-
-                //foreach (CssInfo ci in _cssElements)
-                //    ci.Element.Remove();
-                //_cssElements.Clear();
+                foreach (CssInfo ci in _cssElements)
+                    ci.Element.Remove();
+                _cssElements.Clear();
             }
 
-            // save js 
-            //foreach (CssInfo jsi in _cssElements)
-            //{
-            //    System.IO.StreamWriter sw = new System.IO.StreamWriter(_sm.OutputPath + jsi.Element.Attribute("href").Value);
-            //    sw.Write(jsi.Value);
-            //    sw.Close();
-            //}
+            // save css 
+            foreach (CssInfo css in _cssElements)
+            {
+                System.IO.StreamWriter sw = new System.IO.StreamWriter(css.Uri);
+                sw.Write(CSSRenderer.Render(css.CSS, _sm.IsCssCompress));
+                sw.Close();
+            }
         }
     }
 }
