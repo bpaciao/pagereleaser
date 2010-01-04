@@ -18,11 +18,13 @@ namespace PageReleaser
     class CssManager
     {
         SettingManager _sm = null;
+        CssImageManager _cim = null;
         System.Collections.Generic.List<CssInfo> _cssElements = new List<CssInfo>();
 
         public CssManager(SettingManager sm)
         {
             _sm = sm;
+            _cim = new CssImageManager(sm);
         }
 
         public void Add(XElement xe, UriResolver urSource, UriResolver urTarget )
@@ -38,8 +40,13 @@ namespace PageReleaser
 
             CSSParser parser = new CSSParser();
             ci.CSS = parser.ParseStream( _sm.GetTextStream(uri));
-
             _cssElements.Add(ci);
+
+            //
+            UriResolver SourceUriResolver = new UriResolver(uri);
+            UriResolver TargetUriResolver = new UriResolver(urTarget.ToAbsolute("images\\"));
+
+            _cim.AddFromCSS(ci.CSS, SourceUriResolver, TargetUriResolver);
         }
 
         public void CssMin()
