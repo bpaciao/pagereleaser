@@ -138,6 +138,7 @@
     </Compile>
     <Compile Include="SettingManager.cs" />
     <Compile Include="Releaser.cs" />
+    <Compile Include="UriResolver.cs" />
     <Compile Include="XHTMLResolver.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -17,19 +17,16 @@ namespace PageReleaser
             string xhtml = Html2XHtml(sr.ReadToEnd());
             sr.Close();
 
-            //// parse xhtml
-            //XmlValidatingReader rdr = new XmlValidatingReader(xhtml, XmlNodeType.Document, null);
-            //rdr.ValidationType = ValidationType.None;
-            //rdr.XmlResolver = XHTMLResolver.Create();
-
+            // parse xhtml
             XmlReaderSettings xrs = new XmlReaderSettings();
             xrs.XmlResolver = new XHTMLResolver();
             xrs.ProhibitDtd = false;
 
-            //XDocument doc = XDocument.Load(XHTMLTextReader.Create());
- //           XDocument doc = XDocument.Load(new System.IO.StringReader(xhtml));
-
             XDocument doc = XDocument.Load(XmlReader.Create(new System.IO.StringReader(xhtml), xrs) );
+
+            //
+            UriResolver SourceUriResolver = new UriResolver( sm.PageName );
+            UriResolver TargetUriResolver = new UriResolver(sm.OutputPath);
 
             // init js manager
             JavaScriptManager jsm = new JavaScriptManager( sm );
@@ -39,7 +36,7 @@ namespace PageReleaser
                      s.Attribute("src") != null 
                      select s;
             foreach ( XElement xe in js )
-                jsm.Add(xe);
+                jsm.Add(xe, SourceUriResolver, TargetUriResolver);
             jsm.JSMin();
             
             // init css manager
@@ -51,12 +48,12 @@ namespace PageReleaser
                      s.Attribute("href") != null
                      select s;
             foreach (XElement xe in css)
-                cm.Add(xe);
+                cm.Add(xe, SourceUriResolver, TargetUriResolver);
             cm.CssMin();
 
             // save html
             if ( !sm.IsHtmlCompress )
-                doc.Save( sm.OutputPath + "index.html" );
+                doc.Save(TargetUriResolver.ToAbsolute( "index.html" ) );
             else
             {
                 var nodes = from s in doc.DescendantNodes()
@@ -65,7 +62,7 @@ namespace PageReleaser
                            select s;
 
                 nodes.Remove();
-                doc.Save( sm.OutputPath + "index.html", SaveOptions.DisableFormatting );
+                doc.Save( TargetUriResolver.ToAbsolute("index.html"), SaveOptions.DisableFormatting );
             }
         }
 
