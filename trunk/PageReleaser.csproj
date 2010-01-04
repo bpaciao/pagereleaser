@@ -86,6 +86,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CssImageManager.cs" />
     <Compile Include="CssManager.cs" />
     <Compile Include="CSSRenderer.cs" />
     <Compile Include="JavaScriptManager.cs" />
