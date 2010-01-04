@@ -36,7 +36,9 @@ namespace PageReleaser
 
             sb.AppendFormat("{0} ", dir.Name);
 
-            if (dir.Expression != null) { sb.AppendFormat("{0} ", dir.Expression); }
+            if (dir.Expression != null) { 
+                sb.AppendFormat("{0} ", dir.Expression); 
+            }
 
             bool first = true;
             foreach (Medium m in dir.Mediums)
@@ -83,7 +85,11 @@ namespace PageReleaser
             bool first = true;
             foreach (Selector sel in rs.Selectors)
             {
-                if (first) { first = false; } else { sb.Append(","); }
+                if (first) { 
+                    first = false; 
+                } else { 
+                    sb.Append(","); 
+                }
                 RenderSelector(sb, sel);
             }
             sb.Append("{");
@@ -91,6 +97,7 @@ namespace PageReleaser
             foreach (Declaration dec in rs.Declarations)
             {
                 RenderDeclaration(sb, dec);
+                sb.Append(";");
             }
 
             sb.Append("}");
@@ -101,36 +108,52 @@ namespace PageReleaser
             bool first = true;
             foreach (SimpleSelector ss in sel.SimpleSelectors)
             {
-                if (first) { first = false; } else { sb.Append(" "); }
+                if (first) { 
+                    first = false; 
+                } else { 
+                    sb.Append(" "); 
+                }
+
                 RenderSimpleSelector(sb, ss);
             }
         }
 
         public static void RenderSimpleSelector(StringBuilder sb, SimpleSelector sel)
         {
-            System.Text.StringBuilder txt = new System.Text.StringBuilder();
             if (sel.Combinator.HasValue)
             {
                 switch (sel.Combinator.Value)
                 {
-                    case BoneSoft.CSS.Combinator.PrecededImmediatelyBy: txt.Append(" + "); break;
-                    case BoneSoft.CSS.Combinator.ChildOf: txt.Append(" > "); break;
-                    case BoneSoft.CSS.Combinator.PrecededBy: txt.Append(" ~ "); break;
+                    case BoneSoft.CSS.Combinator.PrecededImmediatelyBy: sb.Append(" + "); break;
+                    case BoneSoft.CSS.Combinator.ChildOf: sb.Append(" > "); break;
+                    case BoneSoft.CSS.Combinator.PrecededBy: sb.Append(" ~ "); break;
                 }
             }
-            if (sel.ElementName != null) { txt.Append(sel.ElementName); }
-            if (sel.ID != null) { txt.AppendFormat("#{0}", sel.ID); }
-            if (sel.Class != null) { txt.AppendFormat(".{0}", sel.Class); }
-            if (sel.Pseudo != null) { txt.AppendFormat(":{0}", sel.Pseudo); }
-            if (sel.Attribute != null) {
+            if (sel.ElementName != null) { 
+                sb.Append(sel.ElementName); 
+            }
+            if (sel.ID != null) { 
+                sb.AppendFormat("#{0}", sel.ID); 
+            }
+            if (sel.Class != null) { 
+                sb.AppendFormat(".{0}", sel.Class);
+            }
+            if (sel.Pseudo != null) { 
+                sb.AppendFormat(":{0}", sel.Pseudo); 
+            }
+            if (sel.Attribute != null)
+            {
                 RenderAttribute(sb, sel.Attribute);
             }
-            if (sel.Function != null) {
+            if (sel.Function != null)
+            {
                 RenderFunction(sb, sel.Function);
             }
             if (sel.Child != null)
             {
-                if (sel.Child.ElementName != null) { txt.Append(" "); }
+                if (sel.Child.ElementName != null) { 
+                    sb.Append(" "); 
+                }
                 RenderSimpleSelector(sb, sel.Child);
             }
         }
@@ -155,7 +178,9 @@ namespace PageReleaser
             }
             else
             {
-                if (term.Sign.HasValue) { sb.Append(term.Sign.Value); }
+                if (term.Sign.HasValue) { 
+                    sb.Append(term.Sign.Value); 
+                }
                 sb.Append(term.Value);
                 if (term.Unit.HasValue)
                 {
@@ -194,9 +219,13 @@ namespace PageReleaser
                     {
                         quoteMe = true;
                     }
-                    if (quoteMe) { sb.Append("'"); }
+                    if (quoteMe) { 
+                        sb.Append("'"); 
+                    }
                     RenderTerm(sb, t);
-                    if (quoteMe) { sb.Append("'"); }
+                    if (quoteMe) { 
+                        sb.Append("'"); 
+                    }
                 }
             }
             sb.Append(")");
@@ -247,10 +276,10 @@ namespace PageReleaser
         {
             sb.AppendFormat("{0}:", decl.Name);
             RenderExpression(sb, decl.Expression);
-            if ( decl.Important )
+            if (decl.Important)
                 sb.Append(" !important");
         }
-        
+
         public static void RenderDirectiveToFontFaceString(StringBuilder sb, Directive dir)
         {
             sb.Append("@font-face {");
@@ -258,7 +287,11 @@ namespace PageReleaser
             bool first = true;
             foreach (Declaration dec in dir.Declarations)
             {
-                if (first) { first = false; } else { sb.Append(";"); }
+                if (first) { 
+                    first = false; 
+                } else { 
+                    sb.Append(";"); 
+                }
                 RenderDeclaration(sb, dec);
             }
 
@@ -323,7 +356,11 @@ namespace PageReleaser
             bool first = true;
             foreach (Declaration dec in dir.Declarations)
             {
-                if (first) { first = false; } else { sb.Append(";"); }
+                if (first) { 
+                    first = false; 
+                } else { 
+                    sb.Append(";"); 
+                }
                 RenderDeclaration(sb, dec);
             }
 

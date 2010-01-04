@@ -8,8 +8,10 @@ namespace PageReleaser
 {
     class JavaScriptInfo
     {
-        public string Value { get; set; }
         public XElement Element { get; set; }
+        public string Value { get; set; }
+        public UriResolver SourceUriResolver { get; set; }
+        public UriResolver TargetUriResolver { get; set; }
     }
 
     class JavaScriptManager
@@ -21,15 +23,18 @@ namespace PageReleaser
             _sm = sm;
         }
 
-        public void Add(XElement xe)
+        public void Add(XElement xe, UriResolver urSource, UriResolver urTarget)
         {
-            if (_sm.IgnoreRemoteFile && _sm.IsRemoteFile(xe.Attribute("src").Value))
+            string uri = urSource.ToAbsolute(xe.Attribute("src").Value);
+            if (_sm.IgnoreRemoteFile && _sm.IsRemoteFile(uri))
                 return;
 
             JavaScriptInfo jsi = new JavaScriptInfo();
             jsi.Element = xe;
+            jsi.SourceUriResolver = urSource;
+            jsi.TargetUriResolver = urTarget;
 
-            System.IO.TextReader sr = _sm.GetTextReader(xe.Attribute("src").Value);
+            System.IO.TextReader sr = _sm.GetTextReader(uri);
             jsi.Value = sr.ReadToEnd() + "\r\n";
             sr.Close();
 
@@ -94,7 +99,8 @@ namespace PageReleaser
             // save js 
             foreach (JavaScriptInfo jsi in _jsElements)
             {
-                System.IO.StreamWriter sw = new System.IO.StreamWriter(_sm.OutputPath + jsi.Element.Attribute("src").Value);
+                string uri = jsi.TargetUriResolver.ToAbsolute(jsi.Element.Attribute("src").Value);
+                System.IO.TextWriter sw = _sm.GetTextWriter(uri);
                 sw.Write(jsi.Value);
                 sw.Close();
             }

@@ -9,9 +9,10 @@ namespace PageReleaser
 {
     class CssInfo
     {
-        public string Uri { get; set; }
-        public CSSDocument CSS { get; set; }
         public XElement Element { get; set; }
+        public CSSDocument CSS { get; set; }
+        public UriResolver SourceUriResolver { get; set; }
+        public UriResolver TargetUriResolver { get; set; }
     }
 
     class CssManager
@@ -24,33 +25,19 @@ namespace PageReleaser
             _sm = sm;
         }
 
-        public void Add(XElement xe)
+        public void Add(XElement xe, UriResolver urSource, UriResolver urTarget )
         {
-            string uri = SettingManager.GetAbsolutePath(_sm.PageName, xe.Attribute("href").Value);
-            if (_sm.IgnoreRemoteFile && _sm.IsRemoteFile(uri))
+            string uri = urSource.ToAbsolute( xe.Attribute("href").Value );
+            if (_sm.IgnoreRemoteFile && _sm.IsCssCombine && _sm.IsRemoteFile(uri))
                 return;
 
             CssInfo ci = new CssInfo();
             ci.Element = xe;
-            ci.Uri = uri;
+            ci.SourceUriResolver = urSource;
+            ci.TargetUriResolver = urTarget;
 
             CSSParser parser = new CSSParser();
-            ci.CSS = parser.ParseStream( _sm.GetTextStream(ci.Uri));
-
-            _cssElements.Add(ci);
-        }
-
-        public void Add(string uri)
-        {
-            if (_sm.IgnoreRemoteFile && _sm.IsRemoteFile(uri))
-                return;
-
-            CssInfo ci = new CssInfo();
-            ci.Uri = uri;
-            ci.Element = null;
-
-            CSSParser parser = new CSSParser();
-            ci.CSS = parser.ParseStream(_sm.GetTextStream(uri));
+            ci.CSS = parser.ParseStream( _sm.GetTextStream(uri));
 
             _cssElements.Add(ci);
         }
@@ -95,7 +82,8 @@ namespace PageReleaser
             // save css 
             foreach (CssInfo css in _cssElements)
             {
-                System.IO.StreamWriter sw = new System.IO.StreamWriter(css.Uri);
+                string uri = css.TargetUriResolver.ToAbsolute(css.Element.Attribute("href").Value);
+                System.IO.TextWriter sw = _sm.GetTextWriter(uri);
                 sw.Write(CSSRenderer.Render(css.CSS, _sm.IsCssCompress));
                 sw.Close();
             }
