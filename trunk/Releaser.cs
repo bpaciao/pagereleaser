@@ -25,8 +25,8 @@ namespace PageReleaser
             XDocument doc = XDocument.Load(XmlReader.Create(new System.IO.StringReader(xhtml), xrs) );
 
             //
-            UriResolver SourceUriResolver = new UriResolver( sm.PageName );
-            UriResolver TargetUriResolver = new UriResolver(sm.OutputPath);
+            UriResolver SourceUriResolver = new UriResolver( sm.PageName, false );
+            UriResolver TargetUriResolver = new UriResolver(sm.OutputPath, true);
 
             // init js manager
             JavaScriptManager jsm = new JavaScriptManager( sm );
