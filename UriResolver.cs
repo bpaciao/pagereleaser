@@ -9,9 +9,9 @@ namespace PageReleaser
     {
         private string _baseUri = "";
 
-        public UriResolver(string uri)
+        public UriResolver(string uri, bool bFolder)
         {
-            if (System.IO.Directory.Exists(uri))
+            if (bFolder)
             {
                 _baseUri = uri;
                 if (_baseUri.EndsWith("\\"))

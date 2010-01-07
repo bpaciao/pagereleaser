@@ -43,5 +43,26 @@ namespace PageReleaser
                 }
             }
         }
+
+        public void ImageMin()
+        {
+            if (_ciiElements.Count == 0)
+                return;
+
+            foreach (CssImageInfo cii in _ciiElements)
+            {
+                if (_sm.IsRemoteFile(cii.Term.Value) && _sm.IgnoreRemoteFile)
+                    continue;
+
+                string uri = cii.SourceUriResolver.ToAbsolute(cii.Term.Value);
+                string uriTar = cii.TargetUriResolver.ToAbsolute( System.IO.Path.GetFileName( uri ) );
+                
+                System.IO.Directory.CreateDirectory( System.IO.Path.GetDirectoryName( uriTar ) );
+                if (System.IO.File.Exists(uri) && !System.IO.File.Exists(uriTar))
+                    System.IO.File.Copy(uri, uriTar);
+
+                cii.Term.Value = cii.TargetUriResolver.ToRelative(uriTar);
+            }
+        }
     }
 }

@@ -43,8 +43,8 @@ namespace PageReleaser
             _cssElements.Add(ci);
 
             //
-            UriResolver SourceUriResolver = new UriResolver(uri);
-            UriResolver TargetUriResolver = new UriResolver(urTarget.ToAbsolute("images\\"));
+            UriResolver SourceUriResolver = new UriResolver(uri, false);
+            UriResolver TargetUriResolver = new UriResolver(urTarget.ToAbsolute("images\\"), true);
 
             _cim.AddFromCSS(ci.CSS, SourceUriResolver, TargetUriResolver);
         }
@@ -53,6 +53,8 @@ namespace PageReleaser
         {
             if (0 == _cssElements.Count)
                 return;
+
+            _cim.ImageMin();
 
             if (_cssElements.Count > 1 && (_sm.IsCssCombine || _sm.IsCssEmbed ))
             {
