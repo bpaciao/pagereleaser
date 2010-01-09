@@ -14,6 +14,9 @@ namespace PageReleaser
         public MainForm()
         {
             InitializeComponent();
+
+            propertyGrid1.SelectedObject = new SettingManager();
+
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -38,24 +41,21 @@ namespace PageReleaser
             StartButton.Enabled = false;
 
             // init proxymanager
-            SettingManager sm = new SettingManager(PageTextBox.Text, OutputTextBox.Text);
 
-            sm.IsHtmlCompress = HTMLCompressCheckBox.Checked;
-
-            sm.IsJavaScriptCompress = JavaScriptCompressCheckBox.Checked;
-            sm.IsJavaScriptCombine = JavaScriptCombineCheckBox.Checked;
-            sm.IsJavaScriptEmbed = JavaScriptEmbedCheckBox.Checked;
-
-            sm.IsCssCompress = CSSCompressCheckBox.Checked;
-            sm.IsCssCombine = CSSCombineCheckBox.Checked;
-            sm.IsCssEmbed = CSSEmbedCheckBox.Checked;
-
-            sm.IgnoreRemoteFile = IgnoreRemoteFilesCheckBox.Checked;
-            sm.IsCurrentFolderAndSubsOnly = CurrentFolderAndSubsOnlyCheckBox.Checked;
+            SettingManager sm = (SettingManager)propertyGrid1.SelectedObject;
+            sm.PageName = PageTextBox.Text;
+            sm.OutputPath = OutputTextBox.Text;
 
             //
-            Releaser r = new Releaser();
-            r.Release(sm);
+            try
+            {
+                Releaser r = new Releaser();
+                r.Release(sm);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
 
             StartButton.Enabled = true;
         }
