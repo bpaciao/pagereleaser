@@ -34,7 +34,7 @@ SOFTWARE.
 
 namespace JavaScriptSupport
 {
-    class JavaScriptMinifier
+    public class JavaScriptMinifier
     {
         const int EOF = -1;
 

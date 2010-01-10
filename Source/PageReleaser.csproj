@@ -8,7 +8,7 @@
     <ProjectGuid>{270D2AF3-F004-4553-8625-C5B21C9BE57A}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PageReleaser</RootNamespace>
+    <RootNamespace>Jeebook.PageReleaser</RootNamespace>
     <AssemblyName>PageReleaser</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -118,6 +118,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="PageReleaser_TemporaryKey.pfx" />
     <None Include="Properties\app.manifest" />

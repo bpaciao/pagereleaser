@@ -4,16 +4,16 @@ using System.Linq;
 using System.Text;
 using BoneSoft.CSS;
 
-namespace PageReleaser
+namespace Jeebook.PageReleaser
 {
-    class CssImageInfo
+    public class CssImageInfo
     {
         public Term Term { get; set; }
         public UriResolver SourceUriResolver { get; set; }
         public UriResolver TargetUriResolver { get; set; }
     }
 
-    class CssImageManager
+    public class CssImageManager
     {
         SettingManager _sm = null;
         System.Collections.Generic.List<CssImageInfo> _ciiElements = new List<CssImageInfo>();

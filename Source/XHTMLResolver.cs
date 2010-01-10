@@ -6,7 +6,7 @@ using System.Collections;
 using System.Xml;
 using System.IO;
 
-namespace PageReleaser
+namespace Jeebook.PageReleaser
 {
     public class XHTMLResolver : XmlResolver
     {

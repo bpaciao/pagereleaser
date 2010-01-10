@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Xml.Linq;
 
-namespace PageReleaser
+namespace Jeebook.PageReleaser
 {
-    class JavaScriptInfo
+    public class JavaScriptInfo
     {
         public XElement Element { get; set; }
         public string Value { get; set; }
@@ -14,7 +14,7 @@ namespace PageReleaser
         public UriResolver TargetUriResolver { get; set; }
     }
 
-    class JavaScriptManager
+    public class JavaScriptManager
     {
         SettingManager _sm;
         System.Collections.Generic.List<JavaScriptInfo> _jsElements = new List<JavaScriptInfo>();

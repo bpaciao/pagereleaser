@@ -6,7 +6,7 @@ using System.ComponentModel;
 using System.Globalization;
 using System.IO;
 
-namespace PageReleaser
+namespace Jeebook.PageReleaser
 {
     public class SettingManager
     {
