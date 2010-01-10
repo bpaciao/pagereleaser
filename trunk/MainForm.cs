@@ -21,6 +21,8 @@ namespace PageReleaser
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            UriResolver uiRes = new UriResolver(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase, true);
+            PageTextBox.Text = uiRes.ToAbsolute("Test\\Website\\index.html");
             OutputTextBox.Text = Environment.GetFolderPath(Environment.SpecialFolder.Desktop).ToString();
         }
 
@@ -75,6 +77,20 @@ namespace PageReleaser
                 string[] str = (string[])e.Data.GetData(DataFormats.FileDrop);
                 PageTextBox.Text = str[0];
             }
+        }
+
+        private void TrueAllCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            SettingManager sm = (SettingManager)propertyGrid1.SelectedObject;
+            sm.Configure(1);
+            propertyGrid1.SelectedObject = sm;
+        }
+
+        private void FalseAllCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            SettingManager sm = (SettingManager)propertyGrid1.SelectedObject;
+            sm.Configure(-1);
+            propertyGrid1.SelectedObject = sm;
         }
     }
 }

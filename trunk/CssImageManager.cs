@@ -51,10 +51,10 @@ namespace PageReleaser
 
             foreach (CssImageInfo cii in _ciiElements)
             {
-                if (_sm.IsRemoteFile(cii.Term.Value) && _sm.IgnoreRemoteFile)
+                string uri = cii.SourceUriResolver.ToAbsolute(cii.Term.Value);
+                if (!_sm.Validate(uri))
                     continue;
 
-                string uri = cii.SourceUriResolver.ToAbsolute(cii.Term.Value);
                 string uriTar = cii.TargetUriResolver.ToAbsolute( System.IO.Path.GetFileName( uri ) );
                 
                 System.IO.Directory.CreateDirectory( System.IO.Path.GetDirectoryName( uriTar ) );

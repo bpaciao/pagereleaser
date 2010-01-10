@@ -30,7 +30,7 @@ namespace PageReleaser
         public void Add(XElement xe, UriResolver urSource, UriResolver urTarget )
         {
             string uri = urSource.ToAbsolute( xe.Attribute("href").Value );
-            if (_sm.IgnoreRemoteFile && _sm.IsCssCombine && _sm.IsRemoteFile(uri))
+            if (!_sm.Validate(uri))
                 return;
 
             CssInfo ci = new CssInfo();

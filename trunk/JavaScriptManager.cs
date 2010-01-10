@@ -26,7 +26,7 @@ namespace PageReleaser
         public void Add(XElement xe, UriResolver urSource, UriResolver urTarget)
         {
             string uri = urSource.ToAbsolute(xe.Attribute("src").Value);
-            if (_sm.IgnoreRemoteFile && _sm.IsRemoteFile(uri))
+            if (!_sm.Validate(uri))
                 return;
 
             JavaScriptInfo jsi = new JavaScriptInfo();
