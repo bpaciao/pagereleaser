@@ -1,4 +1,4 @@
-﻿namespace PageReleaser
+﻿namespace Jeebook.PageReleaser
 {
     partial class MainForm
     {

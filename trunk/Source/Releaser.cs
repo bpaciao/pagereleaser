@@ -6,9 +6,9 @@ using System.Xml;
 using System.Xml.Linq;
 using System.Xml.XPath;
 
-namespace PageReleaser
+namespace Jeebook.PageReleaser
 {
-    class Releaser
+    public class Releaser
     {
         public void Release(SettingManager sm)
         {

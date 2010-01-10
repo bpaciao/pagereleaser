@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using BoneSoft.CSS;
 
-namespace PageReleaser
+namespace Jeebook.PageReleaser
 {
-    static class CSSRenderer
+    public static class CSSRenderer
     {
         public static string Render(CSSDocument css, bool bCompress)
         {

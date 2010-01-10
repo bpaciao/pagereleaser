@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace PageReleaser
+namespace Jeebook.PageReleaser
 {
-    class UriResolver
+    public class UriResolver
     {
         private string _baseUri = "";
 

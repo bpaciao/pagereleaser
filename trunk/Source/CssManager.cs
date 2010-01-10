@@ -5,9 +5,9 @@ using System.Text;
 using System.Xml.Linq;
 using BoneSoft.CSS;
 
-namespace PageReleaser
+namespace Jeebook.PageReleaser
 {
-    class CssInfo
+    public class CssInfo
     {
         public XElement Element { get; set; }
         public CSSDocument CSS { get; set; }
@@ -15,7 +15,7 @@ namespace PageReleaser
         public UriResolver TargetUriResolver { get; set; }
     }
 
-    class CssManager
+    public class CssManager
     {
         SettingManager _sm = null;
         CssImageManager _cim = null;

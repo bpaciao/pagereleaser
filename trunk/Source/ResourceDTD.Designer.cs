@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace PageReleaser {
+namespace Jeebook.PageReleaser {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace PageReleaser {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("PageReleaser.ResourceDTD", typeof(ResourceDTD).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Jeebook.PageReleaser.ResourceDTD", typeof(ResourceDTD).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
