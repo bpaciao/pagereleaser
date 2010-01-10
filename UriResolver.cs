@@ -14,7 +14,7 @@ namespace PageReleaser
             if (bFolder)
             {
                 _baseUri = uri;
-                if (_baseUri.EndsWith("\\"))
+                if (!_baseUri.EndsWith("\\"))
                     _baseUri += "\\";
             }
             else
@@ -23,6 +23,9 @@ namespace PageReleaser
         
         public string ToAbsolute(string relativeUri)
         {
+            if (relativeUri.IndexOf("://") >= 0)
+                return relativeUri;
+
             bool isNotOver = true;
             int intStart = 0;
             while (isNotOver)

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.ComponentModel;
 using System.Globalization;
+using System.IO;
 
 namespace PageReleaser
 {
@@ -74,7 +75,7 @@ namespace PageReleaser
 
         public System.IO.Stream GetTextStream(string uri)
         {
-            if (IsRemoteFile(uri))
+            if (uri.IndexOf("://") > 0)
             {
                 System.Net.WebRequest request = System.Net.HttpWebRequest.Create(uri);
                 System.Net.WebResponse response = request.GetResponse();
@@ -98,9 +99,79 @@ namespace PageReleaser
             return new System.IO.StreamWriter(uri, false, System.Text.Encoding.Default);
         }
 
-        public bool IsRemoteFile( string uri )
+        public bool Validate(string uri)
         {
-            return uri.IndexOf("://") > 0;
+            if (IgnoreRemoteFile && uri.IndexOf("://") > 0)
+                return false;
+
+            if (IgnoreParentFolder && Path.GetDirectoryName(uri).IndexOf(Path.GetDirectoryName(PageName)) < 0)
+                return false;
+
+            return true;
+        }
+
+        public void Configure(int id)
+        {
+            switch (id)
+            {
+                case -1:
+                    IsHtmlCompress = false;
+                    IsHtmlGZip = false;
+
+                    IsJavaScriptCompress = false;
+                    IsJavaScriptCombine = false;
+                    IsJavaScriptEmbed = false;
+                    IsJavaScriptGZip = false;
+
+                    IsCssCompress = false;
+                    IsCssCombine = false;
+                    IsCssEmbed = false;
+                    IsCssGZip = false;
+
+                    IsImageCombine = false;
+
+                    IgnoreRemoteFile = false;
+                    IgnoreParentFolder = false;
+                    break;
+                case 0:
+                    IsHtmlCompress = true;
+                    IsHtmlGZip = false;
+
+                    IsJavaScriptCompress = true;
+                    IsJavaScriptCombine = true;
+                    IsJavaScriptEmbed = false;
+                    IsJavaScriptGZip = false;
+
+                    IsCssCompress = true;
+                    IsCssCombine = true;
+                    IsCssEmbed = false;
+                    IsCssGZip = false;
+
+                    IsImageCombine = true;
+
+                    IgnoreRemoteFile = true;
+                    IgnoreParentFolder = true;
+                    break;
+                case 1:
+                    IsHtmlCompress = true;
+                    IsHtmlGZip = true;
+
+                    IsJavaScriptCompress = true;
+                    IsJavaScriptCombine = true;
+                    IsJavaScriptEmbed = true;
+                    IsJavaScriptGZip = true;
+
+                    IsCssCompress = true;
+                    IsCssCombine = true;
+                    IsCssEmbed = true;
+                    IsCssGZip = true;
+
+                    IsImageCombine = true;
+
+                    IgnoreRemoteFile = true;
+                    IgnoreParentFolder = true;
+                    break;
+            }
         }
     }
 }

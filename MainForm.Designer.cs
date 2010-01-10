@@ -39,6 +39,8 @@
             this.OpenFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.StartButton = new System.Windows.Forms.Button();
             this.propertyGrid1 = new System.Windows.Forms.PropertyGrid();
+            this.TrueAllCheckBox = new System.Windows.Forms.CheckBox();
+            this.FalseAllCheckBox = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // label1
@@ -124,12 +126,36 @@
             this.propertyGrid1.TabIndex = 16;
             this.propertyGrid1.ToolbarVisible = false;
             // 
+            // TrueAllCheckBox
+            // 
+            this.TrueAllCheckBox.AutoSize = true;
+            this.TrueAllCheckBox.Location = new System.Drawing.Point(57, 73);
+            this.TrueAllCheckBox.Name = "TrueAllCheckBox";
+            this.TrueAllCheckBox.Size = new System.Drawing.Size(62, 17);
+            this.TrueAllCheckBox.TabIndex = 17;
+            this.TrueAllCheckBox.Text = "True All";
+            this.TrueAllCheckBox.UseVisualStyleBackColor = true;
+            this.TrueAllCheckBox.CheckedChanged += new System.EventHandler(this.TrueAllCheckBox_CheckedChanged);
+            // 
+            // FalseAllCheckBox
+            // 
+            this.FalseAllCheckBox.AutoSize = true;
+            this.FalseAllCheckBox.Location = new System.Drawing.Point(157, 73);
+            this.FalseAllCheckBox.Name = "FalseAllCheckBox";
+            this.FalseAllCheckBox.Size = new System.Drawing.Size(65, 17);
+            this.FalseAllCheckBox.TabIndex = 18;
+            this.FalseAllCheckBox.Text = "False All";
+            this.FalseAllCheckBox.UseVisualStyleBackColor = true;
+            this.FalseAllCheckBox.CheckedChanged += new System.EventHandler(this.FalseAllCheckBox_CheckedChanged);
+            // 
             // MainForm
             // 
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(545, 333);
+            this.Controls.Add(this.FalseAllCheckBox);
+            this.Controls.Add(this.TrueAllCheckBox);
             this.Controls.Add(this.propertyGrid1);
             this.Controls.Add(this.StartButton);
             this.Controls.Add(this.OutputBrowseButton);
@@ -162,6 +188,8 @@
         private System.Windows.Forms.OpenFileDialog OpenFileDialog;
         private System.Windows.Forms.Button StartButton;
         private System.Windows.Forms.PropertyGrid propertyGrid1;
+        private System.Windows.Forms.CheckBox TrueAllCheckBox;
+        private System.Windows.Forms.CheckBox FalseAllCheckBox;
     }
 }
 

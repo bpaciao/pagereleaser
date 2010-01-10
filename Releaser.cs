@@ -51,6 +51,8 @@ namespace PageReleaser
                 cm.Add(xe, SourceUriResolver, TargetUriResolver);
             cm.CssMin();
 
+            // init image manager
+
             // save html
             if ( !sm.IsHtmlCompress )
                 doc.Save(TargetUriResolver.ToAbsolute( "index.html" ) );
