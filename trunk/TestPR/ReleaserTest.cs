@@ -14,8 +14,8 @@ namespace TestPR
         private void SetPath( SettingManager sm, string strFunctionName)
         {
             UriResolver uiRes = new UriResolver(System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase, true);
-            sm.PageName = uiRes.ToAbsolute("Test\\Website\\index.html");
-            sm.OutputPath = uiRes.ToAbsolute("Test\\Result\\" + strFunctionName + "\\");
+            sm.PageName = uiRes.ToAbsolute("Website\\index.html");
+            sm.OutputPath = uiRes.ToAbsolute("Result\\" + strFunctionName + "\\");
         }
 
         /// <summary>
@@ -81,14 +81,14 @@ namespace TestPR
             sm.IsJavaScriptCompress = true;
             sm.IsJavaScriptCombine = true;
             sm.IsJavaScriptEmbed = true;
-            sm.IsJavaScriptGZip = true;
+ //           sm.IsJavaScriptGZip = true;
 
             sm.IsCssCompress = true;
             sm.IsCssCombine = true;
             sm.IsCssEmbed = true;
-            sm.IsCssGZip = true;
+ //           sm.IsCssGZip = true;
             
-            sm.IsImageCombine = true;
+ //           sm.IsImageCombine = true;
 
             sm.IgnoreRemoteFile = true;
             sm.IgnoreParentFolder = true;
@@ -96,9 +96,14 @@ namespace TestPR
             target.Release(sm);
 
             FileValidator fv = new FileValidator(sm.OutputPath, true);
+            fv.Add("index.html", true);
+ //           fv.Add("image/loading.gif", true);
+            fv.Add("images\\logo.png", true);
+
             Assert.IsTrue(fv.Validate());
         }
 
+        [TestMethod()]
         public void ReleaseAllFalseTest()
         {
             //
@@ -106,32 +111,38 @@ namespace TestPR
             SettingManager sm = new SettingManager(); 
             SetPath(sm, "ReleaseAllFalseTest");
 
-            sm.IsHtmlCompress = true;
-            sm.IsHtmlGZip = true;
+            sm.IsHtmlCompress = false;
+  //          sm.IsHtmlGZip = false;
 
-            sm.IsJavaScriptCompress = true;
-            sm.IsJavaScriptCombine = true;
-            sm.IsJavaScriptEmbed = true;
-            sm.IsJavaScriptGZip = true;
+            sm.IsJavaScriptCompress = false;
+            sm.IsJavaScriptCombine = false;
+            sm.IsJavaScriptEmbed = false;
+  //          sm.IsJavaScriptGZip = false;
 
-            sm.IsCssCompress = true;
-            sm.IsCssCombine = true;
-            sm.IsCssEmbed = true;
-            sm.IsCssGZip = true;
+            sm.IsCssCompress = false;
+            sm.IsCssCombine = false;
+            sm.IsCssEmbed = false;
+  //          sm.IsCssGZip = false;
 
-            sm.IsImageCombine = true;
+ //           sm.IsImageCombine = false;
 
-            sm.IgnoreRemoteFile = true;
-            sm.IgnoreParentFolder = true;
+            sm.IgnoreRemoteFile = false;
+            sm.IgnoreParentFolder = false;
 
             //
             target.Release(sm);
 
             //
             FileValidator fv = new FileValidator(sm.OutputPath, true);
+            fv.Add("index.html", true);
+            // fv.Add("image/loading.gif", true);
+            fv.Add("images\\logo.png", true);
+            fv.Add("js\\test.js", true);
+            fv.Add("css\\test.css", true); 
             Assert.IsTrue(fv.Validate());
         }
 
+        [TestMethod()]
         public void ReleaseDefaultTest()
         {
             //
@@ -162,6 +173,11 @@ namespace TestPR
 
             //
             FileValidator fv = new FileValidator(sm.OutputPath, true);
+            fv.Add("index.html", true);
+            // fv.Add("image/loading.gif", true);
+            fv.Add("images\\logo.png", true);
+            fv.Add("js\\test.js", true);
+            fv.Add("css\\test.css", true); 
             Assert.IsTrue(fv.Validate());
         }
     }
