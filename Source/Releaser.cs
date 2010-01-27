@@ -21,8 +21,14 @@ namespace Jeebook.PageReleaser
             XmlReaderSettings xrs = new XmlReaderSettings();
             xrs.XmlResolver = new XHTMLResolver();
             xrs.ProhibitDtd = false;
+            if (sm.IsHtmlCompress)
+            {
+                xrs.IgnoreComments = true;
+                xrs.IgnoreProcessingInstructions = true;
+                xrs.IgnoreWhitespace = true;
+            }
 
-            XDocument doc = XDocument.Load(XmlReader.Create(new System.IO.StringReader(xhtml), xrs) );
+            XDocument doc = XDocument.Load(XmlReader.Create(new System.IO.StringReader(xhtml), xrs), LoadOptions.None );
 
             //
             UriResolver SourceUriResolver = new UriResolver( sm.PageName, false );
