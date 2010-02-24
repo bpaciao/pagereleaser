@@ -48,6 +48,13 @@ namespace Jeebook.PageReleaser
             sm.PageName = PageTextBox.Text;
             sm.OutputPath = OutputTextBox.Text;
 
+            if (CopyRadioButton.Checked)
+                sm.Configure(ConfigureMode.Copy);
+            else if (DefaultRadioButton.Checked)
+                sm.Configure(ConfigureMode.Default);
+            else
+                sm.Configure(ConfigureMode.Max);
+            
             //
             try
             {
@@ -77,20 +84,6 @@ namespace Jeebook.PageReleaser
                 string[] str = (string[])e.Data.GetData(DataFormats.FileDrop);
                 PageTextBox.Text = str[0];
             }
-        }
-
-        private void TrueAllCheckBox_CheckedChanged(object sender, EventArgs e)
-        {
-            SettingManager sm = (SettingManager)propertyGrid1.SelectedObject;
-            sm.Configure(1);
-            propertyGrid1.SelectedObject = sm;
-        }
-
-        private void FalseAllCheckBox_CheckedChanged(object sender, EventArgs e)
-        {
-            SettingManager sm = (SettingManager)propertyGrid1.SelectedObject;
-            sm.Configure(-1);
-            propertyGrid1.SelectedObject = sm;
         }
     }
 }

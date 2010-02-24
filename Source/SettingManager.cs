@@ -8,6 +8,13 @@ using System.IO;
 
 namespace Jeebook.PageReleaser
 {
+    public enum ConfigureMode
+    {
+        Copy,
+        Default,
+        Max
+    }
+
     public class SettingManager
     {
         private bool _isHtmlCompress = true;
@@ -110,11 +117,11 @@ namespace Jeebook.PageReleaser
             return true;
         }
 
-        public void Configure(int id)
+        public void Configure(ConfigureMode cm)
         {
-            switch (id)
+            switch (cm)
             {
-                case -1:
+                case ConfigureMode.Copy:
                     IsHtmlCompress = false;
                     IsHtmlGZip = false;
 
@@ -130,10 +137,10 @@ namespace Jeebook.PageReleaser
 
                     IsImageCombine = false;
 
-                    IgnoreRemoteFile = false;
-                    IgnoreParentFolder = false;
+                    IgnoreRemoteFile = true;
+                    IgnoreParentFolder = true;
                     break;
-                case 0:
+                case ConfigureMode.Default:
                     IsHtmlCompress = true;
                     IsHtmlGZip = false;
 
@@ -152,19 +159,19 @@ namespace Jeebook.PageReleaser
                     IgnoreRemoteFile = true;
                     IgnoreParentFolder = true;
                     break;
-                case 1:
+                case ConfigureMode.Max:
                     IsHtmlCompress = true;
-                    IsHtmlGZip = true;
+                    IsHtmlGZip = false;
 
                     IsJavaScriptCompress = true;
                     IsJavaScriptCombine = true;
                     IsJavaScriptEmbed = true;
-                    IsJavaScriptGZip = true;
+                    IsJavaScriptGZip = false;
 
                     IsCssCompress = true;
                     IsCssCombine = true;
                     IsCssEmbed = true;
-                    IsCssGZip = true;
+                    IsCssGZip = false;
 
                     IsImageCombine = true;
 
